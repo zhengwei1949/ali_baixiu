@@ -1,4 +1,6 @@
 <?php 
+//防止跳墙
+include '../include/checksession.php';
 header('content-type:text/html;charset=utf8');
 //1. 接收表单数据
 $name = $_POST['name'];

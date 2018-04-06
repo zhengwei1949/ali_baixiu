@@ -1,4 +1,6 @@
 <?php 
+//防止跳墙
+include '../include/checksession.php';
 // print_r($_POST);
 //1.收集表单数据
 $email = $_POST['email'];

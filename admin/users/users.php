@@ -12,6 +12,8 @@
 <body>
   <script>NProgress.start()</script>
 <?php 
+//防止跳墙
+include '../include/checksession.php';
 //1.连接数据库
 include "../include/mysql.php";
 //2.编写SQL语句并执行

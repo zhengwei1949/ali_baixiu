@@ -12,6 +12,8 @@
 <body>
   <script>NProgress.start()</script>
 <?php 
+  //防止跳墙
+  include '../include/checksession.php';
   include '../include/mysql.php';  
   //2. 编写SQL语句并执行
   //查询ali_cate表中的所有的数据

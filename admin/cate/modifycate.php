@@ -1,5 +1,7 @@
 <?php 
 header('content-type:text/html;charset=utf8');
+//防止跳墙
+include '../include/checksession.php';
 // print_r($_POST);
 //1.接收表单数据
 $id = $_POST['id'];

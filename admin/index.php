@@ -11,7 +11,9 @@
 </head>
 <body>
   <script>NProgress.start()</script>
-
+  <?php 
+    include './include/checksession.php';
+  ?>
   <div class="main">
     <?php 
     include "./include/nav.php";

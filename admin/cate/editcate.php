@@ -12,6 +12,8 @@
 <body>
   <script>NProgress.start()</script>
 <?php 
+//防止跳墙
+include '../include/checksession.php';
 //1. 接收cate_id
 $id = $_GET['id'];
 //2. 连接mysql(引入mysql.php文件)

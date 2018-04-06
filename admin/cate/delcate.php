@@ -1,5 +1,7 @@
 <?php 
 header('content-type:text/html;charset=utf8');
+//防止跳墙
+include '../include/checksession.php';
 //1.接收cate_id
 $id = $_GET['id'];
 // echo $id;
