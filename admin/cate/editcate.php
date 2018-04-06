@@ -27,7 +27,7 @@ print_r($cate_info);
 ?>
   <div class="main">
     <?php 
-    include "./include/nav.php";
+    include "../include/nav.php";
     ?>
     <div class="container-fluid">
       <div class="page-title">
