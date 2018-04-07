@@ -3,18 +3,25 @@
 <head>
   <meta charset="utf-8">
   <title>Add new post &laquo; Admin</title>
-  <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css">
-  <link rel="stylesheet" href="../assets/vendors/font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="../assets/vendors/nprogress/nprogress.css">
-  <link rel="stylesheet" href="../assets/css/admin.css">
-  <script src="../assets/vendors/nprogress/nprogress.js"></script>
+  <link rel="stylesheet" href="/assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/assets/vendors/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="/assets/vendors/nprogress/nprogress.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+  <script src="/assets/vendors/nprogress/nprogress.js"></script>
+  <link href="../../assets/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 </head>
 <body>
   <script>NProgress.start()</script>
-
+  <?php 
+  //1. 连接mysql数据库
+  include "../include/mysql.php";
+  //2.编写SQL语句并执行
+  $sql = "select * from ali_cate where cate_state = 1;";
+  $res = mysql_query($sql);
+  ?>
   <div class="main">
     <?php 
-    include "./include/nav.php";
+    include "../include/nav.php";
     ?>
     <div class="container-fluid">
       <div class="page-title">
@@ -24,7 +31,7 @@
       <!-- <div class="alert alert-danger">
         <strong>错误！</strong>发生XXX错误
       </div> -->
-      <form class="row">
+      <form action="addpost_deal.php" method="post" class="row" enctype="multipart/form-data">
         <div class="col-md-9">
           <div class="form-group">
             <label for="title">标题</label>
@@ -32,7 +39,7 @@
           </div>
           <div class="form-group">
             <label for="content">标题</label>
-            <textarea id="content" class="form-control input-lg" name="content" cols="30" rows="10" placeholder="内容"></textarea>
+            <textarea id="content" name="content"></textarea>
           </div>
         </div>
         <div class="col-md-3">
@@ -50,8 +57,10 @@
           <div class="form-group">
             <label for="category">所属分类</label>
             <select id="category" class="form-control" name="category">
-              <option value="1">未分类</option>
-              <option value="2">潮生活</option>
+              <option value="0">--请选择--</option>
+              <?php while($row = mysql_fetch_assoc($res)):?>
+              <option value="2"><?=$row['cate_name']?></option>
+              <?php endwhile;?>
             </select>
           </div>
           <div class="form-group">
@@ -61,8 +70,8 @@
           <div class="form-group">
             <label for="status">状态</label>
             <select id="status" class="form-control" name="status">
-              <option value="drafted">草稿</option>
-              <option value="published">已发布</option>
+              <option value="草稿">草稿</option>
+              <option value="已发布">已发布</option>
             </select>
           </div>
           <div class="form-group">
@@ -74,11 +83,21 @@
   </div>
 
   <div class="aside">
-    <?php include "./include/aside.php"; ?>
+    <?php include "../include/aside.php"; ?>
   </div>
 
-  <script src="../assets/vendors/jquery/jquery.js"></script>
-  <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script src="/assets/vendors/jquery/jquery.js"></script>
+  <script src="/assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/ueditor/umeditor.config.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/ueditor/umeditor.min.js"></script>
+  <script type="text/javascript" src="../../assets/ueditor/lang/zh-cn/zh-cn.js"></script>
   <script>NProgress.done()</script>
+  <script>
+  var um = UM.getEditor('content',{
+        initialFrameWidth:750,
+        initialFrameHeight:300,
+        initialContent:"文章内容"
+    });
+  </script>
 </body>
 </html>

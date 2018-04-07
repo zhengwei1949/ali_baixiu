@@ -3,18 +3,27 @@
 <head>
   <meta charset="utf-8">
   <title>Posts &laquo; Admin</title>
-  <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css">
-  <link rel="stylesheet" href="../assets/vendors/font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="../assets/vendors/nprogress/nprogress.css">
-  <link rel="stylesheet" href="../assets/css/admin.css">
-  <script src="../assets/vendors/nprogress/nprogress.js"></script>
+  <link rel="stylesheet" href="/assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/assets/vendors/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="/assets/vendors/nprogress/nprogress.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+  <script src="/assets/vendors/nprogress/nprogress.js"></script>
 </head>
 <body>
   <script>NProgress.start()</script>
 
   <div class="main">
     <?php 
-    include "./include/nav.php";
+    include '../include/checksession.php';
+    include "../include/nav.php";
+    include '../include/mysql.php';
+    $sql = "select post_title,user_nickname,cate_name,post_updtime,post_state from ali_post p join ali_user u on p.post_author = u.user_id join ali_cate c on p.post_cateid = c.cate_id";
+    $res = mysql_query($sql);
+    // var_dump($res);
+
+    //查询cate表，获取所有的分类数据，显示到分类下拉菜单中
+    $sql = "select * from ali_cate";
+    $cate_res = mysql_query($sql);
     ?>
     <div class="container-fluid">
       <div class="page-title">
@@ -30,8 +39,10 @@
         <a class="btn btn-danger btn-sm" href="javascript:;" style="display: none">批量删除</a>
         <form class="form-inline">
           <select name="" class="form-control input-sm">
-            <option value="">所有分类</option>
-            <option value="">未分类</option>
+            <option value="0">所有分类</option>
+            <?php while($row = mysql_fetch_assoc($cate_res)):?>
+            <option value="<?=$row['cate_id']?>"><?=$row['cate_name']?></option>
+            <?php endwhile;?>
           </select>
           <select name="" class="form-control input-sm">
             <option value="">所有状态</option>
@@ -61,53 +72,32 @@
           </tr>
         </thead>
         <tbody>
+          <?php while($row = mysql_fetch_assoc($res)):?>
           <tr>
             <td class="text-center"><input type="checkbox"></td>
-            <td>随便一个名称</td>
-            <td>小小</td>
-            <td>潮科技</td>
-            <td class="text-center">2016/10/07</td>
-            <td class="text-center">已发布</td>
+            <td><?=$row['post_title']?></td>
+            <td><?=$row['user_nickname']?></td>
+            <td><?=$row['cate_name']?></td>
+            <td class="text-center"><?=date('Y/m/d',$row['post_updtime'])?></td>
+            <td class="text-center"><?=$row['post_state']?></td>
             <td class="text-center">
               <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
               <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
             </td>
           </tr>
-          <tr>
-            <td class="text-center"><input type="checkbox"></td>
-            <td>随便一个名称</td>
-            <td>小小</td>
-            <td>潮科技</td>
-            <td class="text-center">2016/10/07</td>
-            <td class="text-center">已发布</td>
-            <td class="text-center">
-              <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
-              <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-center"><input type="checkbox"></td>
-            <td>随便一个名称</td>
-            <td>小小</td>
-            <td>潮科技</td>
-            <td class="text-center">2016/10/07</td>
-            <td class="text-center">已发布</td>
-            <td class="text-center">
-              <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
-              <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-            </td>
-          </tr>
+          <?php endwhile;?>
+          
         </tbody>
       </table>
     </div>
   </div>
 
   <div class="aside">
-    <?php include "./include/aside.php"; ?>
+    <?php include "../include/aside.php"; ?>
   </div>
 
-  <script src="../assets/vendors/jquery/jquery.js"></script>
-  <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script src="/assets/vendors/jquery/jquery.js"></script>
+  <script src="/assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script>NProgress.done()</script>
 </body>
 </html>
