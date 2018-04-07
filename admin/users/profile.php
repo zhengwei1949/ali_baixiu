@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   <title>Dashboard &laquo; Admin</title>
-  <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css">
-  <link rel="stylesheet" href="../assets/vendors/font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="../assets/vendors/nprogress/nprogress.css">
-  <link rel="stylesheet" href="../assets/css/admin.css">
-  <script src="../assets/vendors/nprogress/nprogress.js"></script>
+  <link rel="stylesheet" href="/assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/assets/vendors/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="/assets/vendors/nprogress/nprogress.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+  <script src="/assets/vendors/nprogress/nprogress.js"></script>
 </head>
 <body>
   <script>NProgress.start()</script>
 
   <div class="main">
     <?php 
-    include "./include/nav.php";
+    include "../include/checksession.php";
+    include "../include/nav.php";
     ?>
     <div class="container-fluid">
       <div class="page-title">
@@ -30,7 +31,7 @@
           <div class="col-sm-6">
             <label class="form-image">
               <input id="avatar" type="file">
-              <img src="../assets/img/default.png">
+              <img src="/assets/img/default.png">
               <i class="mask fa fa-upload"></i>
             </label>
           </div>
@@ -65,7 +66,7 @@
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-6">
             <button type="submit" class="btn btn-primary">更新</button>
-            <a class="btn btn-link" href="password-reset.html">修改密码</a>
+            <a class="btn btn-link" href="./password-reset.php">修改密码</a>
           </div>
         </div>
       </form>
@@ -73,11 +74,11 @@
   </div>
 
   <div class="aside">
-    <?php include "./include/aside.php"; ?>
+    <?php include "../include/aside.php"; ?>
   </div>
 
-  <script src="../assets/vendors/jquery/jquery.js"></script>
-  <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script src="/assets/vendors/jquery/jquery.js"></script>
+  <script src="/assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script>NProgress.done()</script>
 </body>
 </html>
